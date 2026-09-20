@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stati d'Europa — Botonii</title>
+<meta name="description" content="Scopri i paesi d'Europa: popolazione, superficie, PIL e capitali. Con quiz sulle bandiere e sulla mappa.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="#" data-nav="home">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" stroke="#D9A441" stroke-width="2"/>
+        <path d="M24 6v36M6 24h36" stroke="#D9A441" stroke-width="1.4" opacity="0.6"/>
+        <path d="M24 10l3.2 10.8L38 24l-10.8 3.2L24 38l-3.2-10.8L10 24l10.8-3.2L24 10z" fill="#D9A441"/>
+      </svg>
+      Stati d'Europa
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Apri menu" aria-expanded="false">☰</button>
+    <nav class="main-nav" id="mainNav">
+      <button data-nav="home" aria-current="page">Home</button>
+      <button data-nav="stati">Paesi</button>
+      <button data-nav="giochi">Giochi</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ======================= HOME ======================= -->
+<section class="view active" id="view-home">
+  <div class="hero">
+    <div class="container">
+      <div>
+        <h1>Scopri gli Stati d'Europa</h1>
+        <p class="lead">Popolazione, superficie, PIL, capitali e città principali di ogni paese europeo — più due giochi per mettere alla prova la tua geografia.</p>
+        <div class="hero-stats">
+          <div><strong id="statCountries">46</strong><span>paesi schedati</span></div>
+          <div><strong>2</strong><span>giochi</span></div>
+          <div><strong id="statPlayable">40</strong><span>selezionabili sulla mappa</span></div>
+        </div>
+        <p style="margin-top:26px;">
+          <button class="btn" data-nav="stati">Esplora i paesi</button>
+          <button class="btn secondary" data-nav="giochi" style="margin-left:10px;">Vai ai giochi</button>
+        </p>
+      </div>
+      <div class="hero-art">
+        <svg viewBox="0 0 220 220" width="220" aria-hidden="true">
+          <circle cx="110" cy="110" r="95" fill="none" stroke="#cfe0e8" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="110" cy="110" r="70" fill="none" stroke="#cfe0e8" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="110" cy="110" r="45" fill="none" stroke="#cfe0e8" stroke-width="1.5" opacity="0.5"/>
+          <path d="M110 20 L124 96 L200 110 L124 124 L110 200 L96 124 L20 110 L96 96 Z" fill="#D9A441"/>
+          <circle cx="110" cy="110" r="7" fill="#0F2440"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding:48px 0;">
+    <div class="section-head">
+      <h2>Come funziona il sito</h2>
+      <p>Nella sezione <strong>Paesi</strong> trovi la scheda di ogni stato europeo: cerca per nome o filtra per area geografica. Nella sezione <strong>Giochi</strong> puoi metterti alla prova con il quiz delle bandiere e con il quiz della mappa, in stile Toporopa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PAESI ======================= -->
+<section class="view" id="view-stati">
+  <div class="container">
+    <div class="section-head">
+      <h2>I paesi d'Europa</h2>
+      <p>Tocca un paese per vedere capitale, popolazione, superficie, PIL e altre città importanti.</p>
+    </div>
+
+    <div class="filters">
+      <label class="search-box">
+        <span aria-hidden="true">🔍</span>
+        <input type="search" id="searchInput" placeholder="Cerca un paese o una capitale…" aria-label="Cerca un paese">
+      </label>
+      <div id="regionChips" role="group" aria-label="Filtra per area geografica"></div>
+    </div>
+
+    <div class="country-list" id="countryList"></div>
+  </div>
+</section>
+
+<!-- ======================= GIOCHI ======================= -->
+<section class="view" id="view-giochi">
+  <div class="container">
+    <div class="section-head">
+      <h2>Giochi</h2>
+      <p>Due modi per allenare la geografia d'Europa.</p>
+    </div>
+
+    <div class="game-grid" id="gameMenu">
+      <div class="game-card">
+        <div class="icon">🚩</div>
+        <h3>Quiz delle bandiere</h3>
+        <p>Ti mostriamo una bandiera, tu scegli il paese giusto tra quattro opzioni.</p>
+        <button class="btn" data-nav="quiz-flags">Gioca</button>
+      </div>
+      <div class="game-card">
+        <div class="icon">🗺️</div>
+        <h3>Quiz della mappa</h3>
+        <p>Ti diciamo un paese, tu lo trovi e lo tocchi sulla cartina d'Europa.</p>
+        <button class="btn" data-nav="quiz-map">Gioca</button>
+      </div>
+    </div>
+
+    <!-- Flag quiz -->
+    <div class="quiz-wrap" id="quiz-flags">
+      <div class="quiz-topbar">
+        <button class="btn secondary" data-nav="giochi">← Torna ai giochi</button>
+        <div class="quiz-score">Punteggio: <span id="flagScore">0</span> / <span id="flagTotal">0</span></div>
+      </div>
+      <div class="flag-stage">
+        <img id="flagImg" src="" alt="Bandiera da indovinare">
+        <p class="quiz-feedback" id="flagFeedback" aria-live="polite"></p>
+        <div class="flag-options" id="flagOptions"></div>
+        <p style="margin-top:22px;">
+          <button class="btn secondary" id="flagNext">Prossima bandiera →</button>
+        </p>
+      </div>
+    </div>
+
+    <!-- Map quiz -->
+    <div class="quiz-wrap" id="quiz-map">
+      <div class="quiz-topbar">
+        <button class="btn secondary" data-nav="giochi">← Torna ai giochi</button>
+        <div class="quiz-score">Punteggio: <span id="mapScore">0</span> / <span id="mapTotal">0</span></div>
+      </div>
+      <div class="map-stage">
+        <p class="map-target">Tocca sulla mappa: <strong id="mapTargetName">—</strong></p>
+        <p class="quiz-feedback" id="mapFeedback" aria-live="polite"></p>
+        <div id="europe-map-holder"><p class="map-loading">Caricamento mappa…</p></div>
+        <p style="font-size:0.82rem;color:var(--text-soft);margin-top:10px;">
+          Le micro-nazioni (Andorra, Monaco, San Marino, Città del Vaticano, Liechtenstein, Kosovo) sono troppo piccole per la mappa: le trovi comunque nella sezione Paesi.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Country detail dialog -->
+<dialog id="country-detail">
+  <div class="detail-head">
+    <img class="flag" id="detailFlag" src="" alt="">
+    <div>
+      <h3 id="detailName"></h3>
+      <div class="region" id="detailRegion"></div>
+    </div>
+    <button class="detail-close" id="detailClose" aria-label="Chiudi">✕</button>
+  </div>
+  <dl class="detail-stats">
+    <div class="stat"><dt>Capitale</dt><dd id="detailCapital"></dd></div>
+    <div class="stat"><dt>Popolazione</dt><dd id="detailPop"></dd></div>
+    <div class="stat"><dt>Superficie</dt><dd id="detailArea"></dd></div>
+    <div class="stat"><dt>PIL nominale</dt><dd id="detailPil"></dd></div>
+  </dl>
+  <p class="detail-cities" id="detailCities"></p>
+  <p class="detail-note" id="detailNote" hidden></p>
+</dialog>
+
+<footer class="site-footer">
+  <div class="container">
+    <div><strong>Sito by Botonii</strong> — 📞 393 0118902 · ✉️ <a href="mailto:botoniicommercial@gmail.com">botoniicommercial@gmail.com</a></div>
+    <div class="credit">Dati demografici ed economici approssimativi, ad uso didattico. Mappa: Al MacDonald / Fritz Lekschas (CC BY-SA 3.0). Bandiere: flagcdn.com.</div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/quiz-flags.js"></script>
+<script src="js/quiz-map.js"></script>
+</body>
+</html>
