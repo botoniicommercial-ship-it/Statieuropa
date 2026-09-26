@@ -83,7 +83,6 @@ button {
 .site-header .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
   min-height: 72px;
 }
@@ -97,6 +96,7 @@ button {
   font-size: 1.25rem;
   color: #fff;
   text-decoration: none;
+  margin-right: auto;
 }
 
 .brand-mark {
@@ -401,6 +401,54 @@ dialog#country-detail::backdrop {
   color: var(--text);
 }
 
+/* ---------- Storia UE ---------- */
+
+.storia-figure {
+  margin: 0;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+
+.storia-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+}
+
+.storia-figure figcaption {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  text-align: right;
+}
+
+ol.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+ol.timeline li {
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  color: var(--text);
+}
+
+ol.timeline li strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  margin-right: 6px;
+}
+
 /* ---------- Game cards ---------- */
 
 .game-grid {
@@ -562,6 +610,137 @@ dialog#country-detail::backdrop {
 #europe-map-holder path.disabled { pointer-events: none; }
 
 .map-loading { text-align: center; color: var(--text-soft); padding: 40px 0; }
+
+/* ---------- Auth / Admin ---------- */
+
+.auth-area { display: flex; align-items: center; }
+
+.auth-btn { padding: 10px 18px; min-height: 44px; font-size: 0.92rem; }
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 4px 8px 4px 4px;
+}
+
+.user-chip img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #cfe0e8;
+}
+
+.user-chip span {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.icon-btn {
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover { background: rgba(255, 255, 255, 0.15); }
+
+.icon-btn.small {
+  width: auto;
+  height: auto;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--danger);
+  font-size: 0.8rem;
+  border: 1px solid var(--line);
+}
+
+@media (max-width: 760px) {
+  .user-chip span { display: none; }
+}
+
+dialog#admin-panel {
+  border: none;
+  border-radius: var(--radius);
+  padding: 0;
+  width: min(560px, 94vw);
+  max-height: 88vh;
+  box-shadow: var(--shadow);
+}
+
+dialog#admin-panel::backdrop { background: rgba(15, 36, 64, 0.55); }
+
+.admin-body {
+  padding: 22px 26px 28px;
+  overflow-y: auto;
+  max-height: calc(88vh - 90px);
+}
+
+.admin-block + .admin-block {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.admin-block h4 { margin: 0 0 4px; }
+
+.hint { font-size: 0.86rem; color: var(--text-soft); margin-bottom: 14px; }
+
+.admin-row { display: flex; gap: 8px; }
+
+.admin-input, .admin-row input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 0.96rem;
+  margin-bottom: 10px;
+}
+
+.admin-file {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  margin-bottom: 14px;
+}
+
+.admin-file input { display: block; margin-top: 6px; }
+
+.admin-msg { min-height: 22px; font-size: 0.88rem; color: var(--teal); font-weight: 600; }
+
+.people-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.people-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--paper);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
 
 /* ---------- Footer ---------- */
 
