@@ -20,18 +20,13 @@ function fmtArea(km2) {
 
 /* ---------- Navigazione ---------- */
 
-const views = {
-  home: document.getElementById("view-home"),
-  stati: document.getElementById("view-stati"),
-  giochi: document.getElementById("view-giochi")
-};
-
 function goTo(name) {
-  Object.entries(views).forEach(([key, el]) => el.classList.toggle("active", key === name));
+  document.querySelectorAll(".view").forEach((el) => {
+    el.classList.toggle("active", el.id === "view-" + name);
+  });
   document.querySelectorAll(".main-nav button[data-nav]").forEach((btn) => {
     const target = btn.dataset.nav;
-    if (["home", "stati", "giochi"].includes(target)) {
-      btn.toggleAttribute("aria-current", target === name);
+    if (document.getElementById("view-" + target)) {
       if (target === name) btn.setAttribute("aria-current", "page");
       else btn.removeAttribute("aria-current");
     }
@@ -51,14 +46,14 @@ document.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-nav]");
   if (!btn) return;
   const target = btn.dataset.nav;
-  if (["home", "stati", "giochi"].includes(target)) {
-    goTo(target);
-  } else if (target === "quiz-flags" || target === "quiz-map") {
+  if (target === "quiz-flags" || target === "quiz-map") {
     document.getElementById("gameMenu").style.display = "none";
     document.getElementById("quiz-flags").classList.toggle("active", target === "quiz-flags");
     document.getElementById("quiz-map").classList.toggle("active", target === "quiz-map");
     if (target === "quiz-flags") window.startFlagQuiz && window.startFlagQuiz();
     if (target === "quiz-map") window.startMapQuiz && window.startMapQuiz();
+  } else if (document.getElementById("view-" + target)) {
+    goTo(target);
   }
 });
 
