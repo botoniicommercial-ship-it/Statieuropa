@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // METTI QUI LA STESSA EMAIL che hai messo in js/firebase-config.js (OWNER_EMAIL),
+    // tutta minuscola. Questa persona è sempre admin, anche a lista "admins" vuota.
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email.lower() == "metti-qui-la-tua-email@gmail.com" ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.token.email.lower()))
+      );
+    }
+
+    // Elenco delle persone autorizzate (oltre al proprietario sopra).
+    // Chiunque sia loggato può leggerlo (serve per capire se è admin),
+    // solo un admin può aggiungere o togliere qualcuno.
+    match /admins/{email} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Le sezioni create dall'area Admin: visibili a tutti i visitatori,
+    // modificabili solo dagli admin.
+    match /sections/{sectionId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Tutto il resto è bloccato di default.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -26,7 +26,17 @@
       <button data-nav="stati">Paesi</button>
       <button data-nav="storia">Storia UE</button>
       <button data-nav="giochi">Giochi</button>
+      <span id="dynamicNavItems" style="display:contents"></span>
     </nav>
+    <div class="auth-area" id="authArea">
+      <button class="btn secondary auth-btn" id="loginBtn" hidden>Accedi con Google</button>
+      <div class="user-chip" id="userChip" hidden>
+        <img id="userPhoto" alt="" referrerpolicy="no-referrer">
+        <span id="userName"></span>
+        <button id="adminOpenBtn" class="icon-btn" title="Area admin" hidden>⚙️</button>
+        <button id="logoutBtn" class="icon-btn" title="Esci">↪️</button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -179,6 +189,9 @@
   </div>
 </section>
 
+<!-- Sezioni create dall'area Admin vengono aggiunte qui a runtime -->
+<div id="dynamicViews"></div>
+
 <!-- Country detail dialog -->
 <dialog id="country-detail">
   <div class="detail-head">
@@ -199,6 +212,40 @@
   <p class="detail-note" id="detailNote" hidden></p>
 </dialog>
 
+<!-- Admin panel dialog -->
+<dialog id="admin-panel">
+  <div class="detail-head">
+    <div><h3>Area Admin</h3><div class="region">Visibile solo a chi è autorizzato</div></div>
+    <button class="detail-close" id="adminClose" aria-label="Chiudi">✕</button>
+  </div>
+
+  <div class="admin-body">
+    <section class="admin-block">
+      <h4>Persone autorizzate</h4>
+      <p class="hint">Chi aggiungi qui potrà accedere con Google e vedere anche lui il pulsante Admin.</p>
+      <div class="admin-row">
+        <input type="email" id="personEmail" placeholder="email@gmail.com">
+        <button class="btn" id="addPersonBtn">Aggiungi</button>
+      </div>
+      <p class="admin-msg" id="peopleMsg"></p>
+      <ul class="people-list" id="peopleList"></ul>
+    </section>
+
+    <section class="admin-block">
+      <h4>Aggiungi una sezione al menu</h4>
+      <p class="hint">Crea una nuova voce nel menu in alto, con testo e (opzionale) un'immagine.</p>
+      <input type="text" id="sectionTitle" placeholder="Titolo della sezione" class="admin-input">
+      <textarea id="sectionText" rows="4" placeholder="Testo della sezione" class="admin-input"></textarea>
+      <label class="admin-file">
+        Immagine (opzionale)
+        <input type="file" id="sectionImage" accept="image/*">
+      </label>
+      <button class="btn" id="addSectionBtn">Pubblica sezione</button>
+      <p class="admin-msg" id="sectionMsg"></p>
+    </section>
+  </div>
+</dialog>
+
 <footer class="site-footer">
   <div class="container">
     <div><strong>Sito by Botonii</strong> — 📞 393 0118902 · ✉️ <a href="mailto:botoniicommercial@gmail.com">botoniicommercial@gmail.com</a></div>
@@ -210,5 +257,7 @@
 <script src="js/app.js"></script>
 <script src="js/quiz-flags.js"></script>
 <script src="js/quiz-map.js"></script>
+<script type="module" src="js/sections.js"></script>
+<script type="module" src="js/admin.js"></script>
 </body>
 </html>

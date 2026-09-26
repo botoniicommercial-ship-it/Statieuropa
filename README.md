@@ -70,6 +70,40 @@ problemi.
 - Bandiere: [flagcdn.com](https://flagcdn.com)
 - Font: Fraunces e Public Sans (Google Fonts)
 
+## Area Admin (login Google, persone autorizzate, nuove sezioni)
+
+Il sito usa **Firebase** (gratuito) per il login con Google e per salvare
+davvero le sezioni create dall'area Admin. Per completarlo:
+
+1. **Metti la tua email** in due file, esattamente uguale e tutta minuscola:
+   - `js/firebase-config.js` → costante `OWNER_EMAIL`
+   - `firestore.rules` → dentro `isAdmin()`, al posto di
+     `metti-qui-la-tua-email@gmail.com`
+2. Nella [console Firebase](https://console.firebase.google.com) del tuo
+   progetto vai su **Firestore Database → Regole**, incolla tutto il
+   contenuto di `firestore.rules`, poi **Pubblica**.
+3. Carica su GitHub anche i nuovi file: `js/firebase-config.js`,
+   `js/firebase-init.js`, `js/sections.js`, `js/admin.js`,
+   `firestore.rules` (questo può stare anche solo come promemoria, non
+   serve che sia online — quello che conta è averlo incollato nella
+   console Firebase).
+4. Apri il sito e clicca **Accedi con Google** in alto a destra, con la
+   stessa email che hai messo in `OWNER_EMAIL`: vedrai comparire l'icona
+   ⚙️ per aprire l'area Admin.
+
+Da lì puoi:
+- **aggiungere persone**: scrivi la loro email Google, da quel momento
+  possono accedere e vedono anche loro il pulsante Admin;
+- **pubblicare una sezione**: titolo, testo e un'immagine opzionale —
+  compare subito come nuova voce nel menu in alto, per tutti i visitatori.
+
+**Nota su Storage:** Google richiede una carta di credito per attivare
+Firebase Storage (anche restando nel piano gratuito), quindi le immagini
+delle sezioni sono salvate direttamente in Firestore, compresse
+automaticamente. Funziona bene per qualche immagine a sezione; se in
+futuro vuoi caricare molti file più pesanti, puoi attivare Storage (o un
+servizio esterno gratuito come Cloudinary) e me lo fai integrare.
+
 ## Personalizzazione
 
 - Colori e font: variabili in cima a `css/style.css` (sezione `:root`).
